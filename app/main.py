@@ -1,6 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models import User
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -32,3 +36,13 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "Optikt API está ejecutándose"}
+
+
+@app.get("/test-db")
+def test_database(db: Session = Depends(get_db)):
+    user_count = db.query(User).count()
+    return {
+        "status": "Database connected!",
+        "users_count": user_count,
+        "table": "users with UUID, soft delete, and timestamps"
+    }
