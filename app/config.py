@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # App
-    PROJECT_NAME: str = "Optica API"
+    PROJECT_NAME: str = "Optikt API"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
 
