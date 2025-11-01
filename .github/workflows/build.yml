@@ -1,0 +1,44 @@
+name: 🏗️ Build and Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Setup, Lint, and Cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.10.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.12"
+
+      - name: 📦 Cache Python dependencies
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-python-${{ hashFiles('requirements.txt') }}
+
+      - name: ⚙️ Install dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+
+          pip install -r requirements.txt
+
+          # Install linter
+          pip install ruff
+
+      - name: 🔎 Run Linter (Ruff)
+        run: |
+          ruff check .
+          ruff format . --check
