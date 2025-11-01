@@ -60,18 +60,16 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)) -> Any:
             detail="El email ya está registrado",
         )
 
-    print("no user email")
     # Verificar que el username no exista
     user = crud_user.get_by_username(db, username=user_in.username)
     if user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="El username ya está en uso"
         )
-    print("no user username -> create now")
 
     # Crear usuario
     user = crud_user.create(db, obj_in=user_in)
-    
+
     return user
 
 
