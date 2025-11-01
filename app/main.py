@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.api.v1 import auth
+from app.api.v1 import auth, users
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
@@ -23,6 +23,9 @@ app.add_middleware(
 
 # Incluir Auth router bajo /v1/auth
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
+
+# Incluir Auth router bajo /v1/users
+app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["users"])
 
 
 # Ruta de prueba
