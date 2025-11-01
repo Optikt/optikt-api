@@ -1,8 +1,9 @@
-from app.database import SessionLocal
-from app.core.security import get_password_hash
-from app.models.user import User
-from app.models.enums import UserRole
 from uuid import uuid4
+
+from app.core.security import get_password_hash
+from app.database import SessionLocal
+from app.models.enums import UserRole
+from app.models.user import User
 
 
 def create_superuser():

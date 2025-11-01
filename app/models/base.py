@@ -1,8 +1,10 @@
-from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime, timezone
-from uuid import UUID, uuid4
-from app.database import Base
 from typing import Optional
+from uuid import UUID, uuid4
+
+from sqlalchemy.orm import Mapped, mapped_column
+
+from app.database import Base
 
 
 class BaseModel(Base):

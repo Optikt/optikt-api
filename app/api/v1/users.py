@@ -1,13 +1,15 @@
 from typing import Any, List
-from fastapi import APIRouter, Depends, Security, HTTPException, status
-from sqlalchemy.orm import Session
 from uuid import UUID
-from app.database import get_db
-from app.schemas.user import UserResponse, UserCreate, UserUpdate
-from app.crud.user import user as crud_user
+
+from fastapi import APIRouter, Depends, HTTPException, Security, status
+from sqlalchemy.orm import Session
+
 from app.api.deps import get_current_active_user, get_current_superuser
-from app.models.user import User
+from app.crud.user import user as crud_user
+from app.database import get_db
 from app.models.enums import UserRole
+from app.models.user import User
+from app.schemas.user import UserCreate, UserResponse, UserUpdate
 
 router = APIRouter(dependencies=[])
 

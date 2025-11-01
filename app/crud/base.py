@@ -1,7 +1,9 @@
-from datetime import timezone, datetime
-from typing import Generic, TypeVar, Type, Optional, List, Any
+from datetime import datetime, timezone
+from typing import Any, Generic, List, Optional, Type, TypeVar
+
 from pydantic import BaseModel as PydanticBaseModel
 from sqlalchemy.orm import Session
+
 from app.models.base import BaseModel
 
 ModelType = TypeVar("ModelType", bound=BaseModel)

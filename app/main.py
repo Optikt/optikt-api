@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.config import settings
-from app.api.v1 import auth, users
 from sqlalchemy.orm import Session
+
+from app.api.v1 import auth, users
+from app.config import settings
 from app.database import get_db
 from app.models import User
 

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
+
 from app.models.base import BaseModel
 from app.models.enums import UserRole
 
