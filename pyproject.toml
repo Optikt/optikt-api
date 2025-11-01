@@ -7,10 +7,15 @@ exclude = [
     ".mypy_cache",
     ".pytest_cache",
 ]
-
-# Enable select Ruff rules (e.g., F: Pyflakes, E: Pycodestyle, I: isort)
-select = ["E", "F", "W", "I"]
 line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+] # Enable select Ruff rules (e.g., F: Pyflakes, E: Pycodestyle, I: isort)
 
 [tool.ruff.format]
 # Ruff's formatter uses Black's style by default, ensuring consistency.
