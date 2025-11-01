@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
@@ -44,5 +43,5 @@ def test_database(db: Session = Depends(get_db)):
     return {
         "status": "Database connected!",
         "users_count": user_count,
-        "table": "users with UUID, soft delete, and timestamps"
+        "table": "users with UUID, soft delete, and timestamps",
     }

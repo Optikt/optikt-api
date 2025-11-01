@@ -14,6 +14,7 @@ class BaseModel(SQLAlchemyBase):
     # Soft delete
     deleted_at = Column(DateTime, nullable=True, default=None)
 
+    # TODO: Fix time date. .utcnow is deprecated
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(
