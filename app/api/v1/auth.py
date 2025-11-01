@@ -11,6 +11,7 @@ from app.core.security import create_access_token
 from app.crud import user as crud_user
 from app.database import get_db
 from app.models.user import User
+from app.schemas.access_token import AccessTokenData
 from app.schemas.user import Token, UserCreate, UserResponse
 
 router = APIRouter()
@@ -38,7 +39,7 @@ def login(
     # Crear token JWT
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": str(user.id)},  # "sub" es el subject (user_id)
+        data=AccessTokenData(sub=user.id),  # "sub" es el subject (user_id)
         expires_delta=access_token_expires,
     )
 

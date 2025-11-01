@@ -1,3 +1,4 @@
+from app.schemas.access_token import AccessTokenData
 from app.schemas.user import (
     Token,
     TokenData,
@@ -16,4 +17,5 @@ __all__ = [
     "UserLogin",
     "Token",
     "TokenData",
+    "AccessTokenData",
 ]
