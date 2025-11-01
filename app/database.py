@@ -1,22 +1,22 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from app.config import settings
 
-# Crear el engine (motor de conexión a la DB)
+# Crear el engine
 engine = create_engine(
     settings.DATABASE_URL,
-    pool_pre_ping=True,  # Verifica que la conexión esté viva antes de usarla
-    echo=True  # Muestra las queries SQL en consola (útil para desarrollo)
+    pool_pre_ping=True,
+    echo=True
 )
 
-# SessionLocal: cada instancia es una sesión de DB
+# SessionLocal
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base: clase base para todos los modelos
-Base = declarative_base()
+# Base moderna con mejor type checking
+class Base(DeclarativeBase):
+    pass
 
-# Dependency para obtener la sesión de DB en los endpoints
+# Dependency para obtener la sesión de DB
 def get_db():
     db = SessionLocal()
     try:

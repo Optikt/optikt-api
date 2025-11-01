@@ -1,24 +1,23 @@
-from sqlalchemy import Column, DateTime
-from sqlalchemy.dialects.postgresql import UUID as PGUUID
-from datetime import datetime
-from uuid import uuid4
-from app.database import Base as SQLAlchemyBase
+from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime, timezone
+from uuid import UUID, uuid4
+from app.database import Base
+from typing import Optional
 
 
-class BaseModel(SQLAlchemyBase):
+class BaseModel(Base):
     __abstract__ = True  # Indica que esta clase no crea tabla propia
 
     # UUID como primary key
-    id = Column(PGUUID(as_uuid=True), primary_key=True, default=uuid4, index=True)
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4, index=True)
 
     # Soft delete
-    deleted_at = Column(DateTime, nullable=True, default=None)
+    deleted_at: Mapped[Optional[datetime]] = mapped_column(default=None)
 
-    # TODO: Fix time date. .utcnow is deprecated
     # Timestamps
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    created_at: Mapped[datetime] = mapped_column(default=datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(
+        default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc)
     )
 
     @property

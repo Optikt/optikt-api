@@ -1,19 +1,16 @@
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy.orm import Mapped, mapped_column
 from app.models.base import BaseModel
 from app.models.enums import UserRole
 
+
 class User(BaseModel):
     __tablename__ = "users"
-    
-    # Información básica
-    email = Column(String, unique=True, index=True, nullable=False)
-    username = Column(String, unique=True, index=True, nullable=False)
-    full_name = Column(String, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    
-    # Estado y permisos
-    is_active = Column(Boolean, default=True, nullable=False)
-    is_superuser = Column(Boolean, default=False, nullable=False)
-    
-    # Role como Enum
-    role = Column(String, nullable=False, default=UserRole.SELLER.value)
+
+    # Con Mapped, el type checker entiende los tipos correctamente
+    email: Mapped[str] = mapped_column(unique=True, index=True)
+    username: Mapped[str] = mapped_column(unique=True, index=True)
+    full_name: Mapped[str] = mapped_column()
+    hashed_password: Mapped[str] = mapped_column()
+    is_active: Mapped[bool] = mapped_column(default=True)
+    is_superuser: Mapped[bool] = mapped_column(default=False)
+    role: Mapped[str] = mapped_column(default=UserRole.SELLER.value)
