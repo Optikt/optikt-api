@@ -9,7 +9,7 @@ from app.api.deps import get_current_active_user, get_current_superuser
 from app.models.user import User
 from app.models.enums import UserRole
 
-router = APIRouter(dependencies=)
+router = APIRouter(dependencies=[])
 
 
 @router.get("/", response_model=List[UserResponse])
