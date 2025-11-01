@@ -6,7 +6,7 @@ from app.config import settings
 engine = create_engine(
     settings.DATABASE_URL,
     pool_pre_ping=True,
-    echo=True
+    echo=settings.DEBUG
 )
 
 # SessionLocal
