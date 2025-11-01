@@ -8,6 +8,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
+.pytest_cache
 
 # IDEs
 .vscode/
