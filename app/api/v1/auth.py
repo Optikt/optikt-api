@@ -79,11 +79,3 @@ def read_users_me(current_user: User = Depends(get_current_active_user)) -> Any:
     Obtener información del usuario actual (desde el token).
     """
     return current_user
-
-
-@router.post("/test-token", response_model=UserResponse)
-def test_token(current_user: User = Depends(get_current_active_user)) -> Any:
-    """
-    Test endpoint para verificar que el token funciona.
-    """
-    return current_user
