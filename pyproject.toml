@@ -33,5 +33,5 @@ exclude = ["alembic/", "tests/"]
 # Tell mypy about your main module path for absolute imports
 # This is often needed when using internal imports (e.g., `from app.main import app`)
 # like you do in your tests.
-python_version = "3.10.12"
+python_version = "3.10"
 files = ["app"]
