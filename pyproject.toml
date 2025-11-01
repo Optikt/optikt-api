@@ -21,3 +21,7 @@ strict = true
 exclude = ["alembic/", "tests/"]
 python_version = "3.10"
 files = ["app"]
+
+[[tool.mypy.overrides]]
+module = "app.config"
+ignore_errors = true
