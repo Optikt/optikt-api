@@ -31,7 +31,7 @@ app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["u
 
 # Ruta de prueba
 @app.get("/")
-def root():
+def root() -> dict[str, str]:
     return {
         "message": "Bienvenido a Optikt API",
         "version": settings.VERSION,
@@ -41,12 +41,12 @@ def root():
 
 # Health check
 @app.get("/health")
-def health_check():
+def health_check() -> dict[str, str]:
     return {"status": "ok", "message": "Optikt API está ejecutándose"}
 
 
 @app.get("/test-db")
-def test_database(db: Session = Depends(get_db)):
+def test_database(db: Session = Depends(get_db)) -> dict[str, str | int]:
     user_count = db.query(User).count()
     return {
         "status": "Database connected!",

@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Security, status
