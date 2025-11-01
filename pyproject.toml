@@ -1,0 +1,32 @@
+[tool.ruff]
+exclude = [
+    "alembic",
+    ".git",
+    "__pycache__",
+    "venv",
+    ".mypy_cache",
+    ".pytest_cache",
+]
+
+# Enable select Ruff rules (e.g., F: Pyflakes, E: Pycodestyle, I: isort)
+select = ["E", "F", "W", "I"]
+line-length = 88
+
+[tool.ruff.format]
+# Ruff's formatter uses Black's style by default, ensuring consistency.
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+# 2. Mypy Type Checker Configuration
+# Set the project to strict mode for the best type checking in FastAPI
+strict = true
+
+# Exclude the alembic folder
+exclude = ["alembic/", "tests/"]
+
+# Tell mypy about your main module path for absolute imports
+# This is often needed when using internal imports (e.g., `from app.main import app`)
+# like you do in your tests.
+python_version = "3.10.12"
+files = ["app"]
