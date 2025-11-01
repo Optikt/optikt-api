@@ -6,7 +6,7 @@ from app.models.enums import UserRole
 from app.models.user import User
 
 
-def create_superuser():
+def create_superuser() -> None:
     db = SessionLocal()
 
     username = "optikt"

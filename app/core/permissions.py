@@ -21,24 +21,24 @@ class RoleChecker:
 
 
 # Decoradores predefinidos para facilitar el uso
-def require_super_admin(user_role: str):
+def require_super_admin(user_role: str) -> bool:
     """Solo SUPER_ADMIN"""
     return RoleChecker([UserRole.SUPER_ADMIN])(user_role)
 
 
-def require_admin(user_role: str):
+def require_admin(user_role: str) -> bool:
     """SUPER_ADMIN o ADMIN"""
     return RoleChecker([UserRole.SUPER_ADMIN, UserRole.ADMIN])(user_role)
 
 
-def require_manager(user_role: str):
+def require_manager(user_role: str) -> bool:
     """SUPER_ADMIN, ADMIN o MANAGER"""
     return RoleChecker([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.MANAGER])(
         user_role
     )
 
 
-def require_seller(user_role: str):
+def require_seller(user_role: str) -> bool:
     """Cualquier rol excepto VIEWER"""
     return RoleChecker(
         [UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.MANAGER, UserRole.SELLER]

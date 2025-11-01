@@ -20,7 +20,7 @@ def list_users(
     skip: int = 0,
     limit: int = 100,
     current_user: User = Security(get_current_active_user),
-):
+) -> List[User]:
     """
     Listar todos los usuarios.
     Solo usuarios activos pueden ver la lista.
@@ -29,7 +29,7 @@ def list_users(
 
 
 @router.get("/me", response_model=UserResponse)
-def read_user_me(current_user: User = Depends(get_current_active_user)):
+def read_user_me(current_user: User = Depends(get_current_active_user)) -> User:
     """
     Obtener información del usuario actual.
     """
@@ -41,7 +41,7 @@ def read_user_by_id(
     user_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
-):
+) -> User:
     """
     Obtener usuario por ID.
     """
@@ -68,7 +68,7 @@ def create_user(
     db: Session = Depends(get_db),
     # Solo superuser puede crear
     current_user: User = Depends(get_current_superuser),
-):
+) -> User:
     """
     Crear nuevo usuario.
     Solo super usuarios pueden crear usuarios.
@@ -99,7 +99,7 @@ def update_user(
     user_in: UserUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
-) -> Any:
+) -> User:
     """
     Actualizar usuario.
     Los usuarios pueden actualizarse a sí mismos.
@@ -155,7 +155,7 @@ def delete_user(
     db: Session = Depends(get_db),
     # Solo superuser puede eliminar
     current_user: User = Depends(get_current_superuser),
-) -> Any:
+) -> User | None:
     """
     Eliminar usuario (soft delete).
     Solo super usuarios pueden eliminar usuarios.
