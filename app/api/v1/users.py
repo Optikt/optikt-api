@@ -101,7 +101,7 @@ def update_user(
     user_id: UUID,
     user_in: UserUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Security(get_current_active_user),
 ) -> User:
     """
     Actualizar usuario.
@@ -157,7 +157,7 @@ def delete_user(
     user_id: UUID,
     db: Session = Depends(get_db),
     # Solo superuser puede eliminar
-    current_user: User = Depends(get_current_superuser),
+    current_user: User = Security(get_current_superuser),
 ) -> User | None:
     """
     Eliminar usuario (soft delete).
