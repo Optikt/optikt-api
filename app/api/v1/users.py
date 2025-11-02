@@ -62,7 +62,9 @@ def read_user_by_id(
     return user
 
 
-@router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/create", response_model=UserResponse, status_code=status.HTTP_201_CREATED
+)
 def create_user(
     user_in: UserCreate,
     db: Session = Depends(get_db),
