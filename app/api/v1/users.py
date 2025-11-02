@@ -11,7 +11,7 @@ from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse, UserUpdate
 
-router = APIRouter(dependencies=[])
+router = APIRouter(dependencies=[Security(get_current_active_user)])
 
 
 @router.get("/", response_model=List[UserResponse])
@@ -19,7 +19,6 @@ def list_users(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
-    current_user: User = Security(get_current_active_user),
 ) -> List[User]:
     """
     Listar todos los usuarios.
@@ -29,7 +28,7 @@ def list_users(
 
 
 @router.get("/me", response_model=UserResponse)
-def read_user_me(current_user: User = Depends(get_current_active_user)) -> User:
+def read_user_me(current_user: User = Security(get_current_active_user)) -> User:
     """
     Obtener información del usuario actual.
     """
@@ -40,7 +39,7 @@ def read_user_me(current_user: User = Depends(get_current_active_user)) -> User:
 def read_user_by_id(
     user_id: UUID,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Security(get_current_active_user),
 ) -> User:
     """
     Obtener usuario por ID.
@@ -63,13 +62,15 @@ def read_user_by_id(
 
 
 @router.post(
-    "/create", response_model=UserResponse, status_code=status.HTTP_201_CREATED
+    "/create",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED,
+    # Solo superuser puede crear
+    dependencies=[Security(get_current_superuser)],
 )
 def create_user(
     user_in: UserCreate,
     db: Session = Depends(get_db),
-    # Solo superuser puede crear
-    current_user: User = Depends(get_current_superuser),
 ) -> User:
     """
     Crear nuevo usuario.
