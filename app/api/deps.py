@@ -36,6 +36,10 @@ def get_current_user(
             raise credentials_exception
 
     except JWTError as e:
+        print(f"JWTError: {e}")
+        raise credentials_exception from e
+    except Exception as e:
+        print(f"Exception: {e}")
         raise credentials_exception from e
 
     user = crud_user.get(db, id=user_id)
