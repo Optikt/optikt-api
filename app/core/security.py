@@ -34,9 +34,10 @@ def create_access_token(
         )
 
     to_encode.exp = expire
-
     return jwt.encode(
-        to_encode.model_dump(), settings.SECRET_KEY, algorithm=settings.ALGORITHM
+        to_encode.model_dump(),
+        settings.SECRET_KEY,
+        algorithm=settings.ALGORITHM,
     )
 
 
@@ -49,4 +50,7 @@ def decode_access_token(token: str) -> Optional[AccessTokenData]:
 
         return AccessTokenData(**decode_dict)
     except JWTError:
+        return None
+    except Exception as e:
+        print(f"decode_access_token error: {e}")
         return None
