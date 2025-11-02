@@ -55,10 +55,11 @@ def get_current_active_user(
     """
     Verifica que el usuario actual esté activo (no desactivado).
     """
-    if not current_user.is_active:
+    if not current_user.is_active or current_user.deleted_at is not None:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Usuario inactivo"
         )
+
     return current_user
 
 
